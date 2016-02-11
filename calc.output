@@ -1,0 +1,208 @@
+Terminals unused in grammar
+
+   MINUS
+   DIVIDE
+   LEFTPAREN
+   RIGHTPAREN
+
+
+State 13 conflicts: 2 shift/reduce
+State 14 conflicts: 2 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: program statement
+    2        | %empty
+
+    3 statement: expr NEWLINE
+    4          | VARIABLE ASSIGNMENT expr NEWLINE
+
+    5 expr: INTEGER
+    6     | VARIABLE
+    7     | expr PLUS expr
+    8     | expr MULTIPLY expr
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+ASSIGNMENT (258) 4
+PLUS (259) 7
+MINUS (260)
+MULTIPLY (261) 8
+DIVIDE (262)
+NEWLINE (263) 3 4
+LEFTPAREN (264)
+RIGHTPAREN (265)
+VARIABLE (266) 4 6
+INTEGER (267) 5
+
+
+Nonterminals, with rules where they appear
+
+$accept (13)
+    on left: 0
+program (14)
+    on left: 1 2, on right: 0 1
+statement (15)
+    on left: 3 4, on right: 1
+expr (16)
+    on left: 5 6 7 8, on right: 3 4 7 8
+
+
+State 0
+
+    0 $accept: . program $end
+
+    $default  reduce using rule 2 (program)
+
+    program  go to state 1
+
+
+State 1
+
+    0 $accept: program . $end
+    1 program: program . statement
+
+    $end      shift, and go to state 2
+    VARIABLE  shift, and go to state 3
+    INTEGER   shift, and go to state 4
+
+    statement  go to state 5
+    expr       go to state 6
+
+
+State 2
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 3
+
+    4 statement: VARIABLE . ASSIGNMENT expr NEWLINE
+    6 expr: VARIABLE .
+
+    ASSIGNMENT  shift, and go to state 7
+
+    $default  reduce using rule 6 (expr)
+
+
+State 4
+
+    5 expr: INTEGER .
+
+    $default  reduce using rule 5 (expr)
+
+
+State 5
+
+    1 program: program statement .
+
+    $default  reduce using rule 1 (program)
+
+
+State 6
+
+    3 statement: expr . NEWLINE
+    7 expr: expr . PLUS expr
+    8     | expr . MULTIPLY expr
+
+    PLUS      shift, and go to state 8
+    MULTIPLY  shift, and go to state 9
+    NEWLINE   shift, and go to state 10
+
+
+State 7
+
+    4 statement: VARIABLE ASSIGNMENT . expr NEWLINE
+
+    VARIABLE  shift, and go to state 11
+    INTEGER   shift, and go to state 4
+
+    expr  go to state 12
+
+
+State 8
+
+    7 expr: expr PLUS . expr
+
+    VARIABLE  shift, and go to state 11
+    INTEGER   shift, and go to state 4
+
+    expr  go to state 13
+
+
+State 9
+
+    8 expr: expr MULTIPLY . expr
+
+    VARIABLE  shift, and go to state 11
+    INTEGER   shift, and go to state 4
+
+    expr  go to state 14
+
+
+State 10
+
+    3 statement: expr NEWLINE .
+
+    $default  reduce using rule 3 (statement)
+
+
+State 11
+
+    6 expr: VARIABLE .
+
+    $default  reduce using rule 6 (expr)
+
+
+State 12
+
+    4 statement: VARIABLE ASSIGNMENT expr . NEWLINE
+    7 expr: expr . PLUS expr
+    8     | expr . MULTIPLY expr
+
+    PLUS      shift, and go to state 8
+    MULTIPLY  shift, and go to state 9
+    NEWLINE   shift, and go to state 15
+
+
+State 13
+
+    7 expr: expr . PLUS expr
+    7     | expr PLUS expr .
+    8     | expr . MULTIPLY expr
+
+    PLUS      shift, and go to state 8
+    MULTIPLY  shift, and go to state 9
+
+    PLUS      [reduce using rule 7 (expr)]
+    MULTIPLY  [reduce using rule 7 (expr)]
+    $default  reduce using rule 7 (expr)
+
+
+State 14
+
+    7 expr: expr . PLUS expr
+    8     | expr . MULTIPLY expr
+    8     | expr MULTIPLY expr .
+
+    PLUS      shift, and go to state 8
+    MULTIPLY  shift, and go to state 9
+
+    PLUS      [reduce using rule 8 (expr)]
+    MULTIPLY  [reduce using rule 8 (expr)]
+    $default  reduce using rule 8 (expr)
+
+
+State 15
+
+    4 statement: VARIABLE ASSIGNMENT expr NEWLINE .
+
+    $default  reduce using rule 4 (statement)
