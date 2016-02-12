@@ -22,22 +22,27 @@ struct tokenInfo2 yylval;
 
 %%
 
-[a-z]   { yylval.ti.value = 0;
+[a-zA-Z][a-zA-Z0-9]*   { yylval.ti.value = 0;
           yylval.ti.name =  (char *) strdup(yytext);
           printf("VARIABLE: %s\n", yylval.ti.name);
-        }
+        } // Handles all alphanumeric strings (does not handle _)
 
 [0-9]+  { yylval.ti.value = atoi(yytext);
           yylval.ti.name = NULL;
           printf("INTEGER: %g\n", yylval.ti.value);
-        }
+        } // Handles Ints
+
+[0-9]+[.][0-9]+  { yylval.ti.value = atof(yytext);
+          yylval.ti.name = NULL;
+          printf("DOUBLE: %g\n", yylval.ti.value);
+        } // Handles Doubles
 
 =      printf("ASSIGNMENT\n");
 \+     printf("PLUS\n");
 \*     printf("MULTIPLY\n");
 \n     printf("NEWLINE\n");
-[ ]    ;
-.      printf("Invalid character\n");
+[ \n\t]     ;   // Should handle all whitespace 
+.      printf("Invalid character: \"%s\"\n", yytext);// Should return the invalid character along with a message
 
 %%
 
