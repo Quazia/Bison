@@ -13,6 +13,12 @@ int lineNumber = 1;
 %token <ti> VARIABLE 
 %token <ti> INTEGER 
 %type <ti> expr
+%type <ti> sum
+%type <ti> product
+%type <ti> term
+%type <ti> assign
+%type <ti> first
+
 
 %%
 
@@ -20,24 +26,50 @@ program: program statement
        | /* epsilon */
        ;
 
-statement: expr NEWLINE 
+statement: first NEWLINE 
                              { printf("%g\n", $1.value);
                                lineNumber++;
                              }
-         | VARIABLE ASSIGNMENT expr NEWLINE
-                             { putVar($1.name, $3.value);
-                               lineNumber++;
-                             }
+           | assign            {  }
          ;
 
-expr: INTEGER                { $$ = $1; }
+assign:   VARIABLE ASSIGNMENT assign 
+                             { $$.value = $3.value;
+                               putVar($1.name, $3.value); 
+                             }
+          | VARIABLE ASSIGNMENT first NEWLINE
+                             { $$.value = $3.value;
+                               putVar($1.name, $3.value);
+                               lineNumber++;
+                             }
+         ;         
+
+
+first: expr         { $$.value =  $1.value; }
+      | MINUS expr  { $$.value =  0 - $2.value; }
+      ;
+
+
+expr: sum         { $$.value =  $1.value; }
+      ;
+
+sum: sum PLUS product      { $$.value = $1.value + $3.value; }
+     | sum MINUS product   { $$.value = $1.value - $3.value; }
+     | product          { $$.value =  $1.value; }
+     ;
+
+product: product MULTIPLY term     { $$.value = $1.value * $3.value; }
+         | product DIVIDE term     { $$.value = $1.value / $3.value; }
+         | term                { $$.value =  $1.value; }
+         ;
+
+term: INTEGER                { $$ = $1; }
+      | LEFTPAREN expr RIGHTPAREN { $$.value =  $2.value; }
       | VARIABLE             { if (getVar($1.name)!= 0) {
                                    varRec *tmp = getVar($1.name);
                                    $$.value = tmp->value; 
                                }
                              }
-      | expr PLUS expr      { $$.value = $1.value + $3.value; }
-      | expr MULTIPLY expr  { $$.value = $1.value * $3.value; }
       ;
 
 %%
