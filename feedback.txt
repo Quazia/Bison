@@ -1,41 +1,42 @@
 Feedback on scanning and parsing lab 
 
-My name is:
+My name is: Arthur Lunn
 
-My account number is:
+My account number is: all3187
 
 What did I learn?
 
-
-
-
+ - It seems like it's a lot easier to program a prefix calculator but this
+   may just be a result of doing it second.
 
 How far did I get in this lab?
 
-
+ - Finished all three parts. Haven't done the Bonus.
 
 
 
 What did I have problems with?
 
-
-
+ - Part 2 was really hard. It's difficult to figure out what element is
+   causing the shift/reduce && reduce/reduce errors since MAKE doesn't give
+   any indication
 
 
 What can the instructor do to improve this lab?
 
-
+ - It's unclear what the program should do when given an "illegal" input.
 
 
 
 What would you have liked to do in this lab?
 
-
-
+ - Nothing extra I would have liked to do.
 
 
 Anything else you would like to tell me:
 
+ - I assumed that an "illegal" input (part 3) it should generate a syntax 
+   error.
 
 
 
