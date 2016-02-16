@@ -24,6 +24,7 @@ int lineNumber = 1;
 %type <ti> statement
 %type <ti> asgnstmt
 %type <ti> ifstmt
+%type <ti> forstmt
 %type <ti> condition
 
 %%
@@ -39,6 +40,7 @@ statements: statement { $$.code = $1.code; }
             ;
 
 statement: ifstmt { $$.code = $1.code; }
+           | forstmt { $$.code = $1.code; }
            | asgnstmt { $$.code = $1.code; }
            | sum { $$.code = $1.code; }
            | /* EMPTY */ { $$.code = strdup(""); }
@@ -49,6 +51,15 @@ asgnstmt : VARIABLE ASGN sum { $$.code = cat4( $3.code,
                                                $1.code,
                                                "\n"); }
            ;
+
+forstmt: FOR asgnstmt condition statement block {
+    $$.code = cat4($2.code,
+                   $3.code,
+                   $4.code,
+                   $5.code
+                   );
+}
+
 
 ifstmt: IF condition THEN block ELSE block {
     char *L1 = getlabel();

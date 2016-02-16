@@ -11,7 +11,14 @@ What did I learn?
 
 How far did I get in this lab?
 
- - Finished all three parts. Haven't done the Bonus.
+ - Finished all three main parts.
+
+ - Tried the bonus:
+        > it should accept "{ for x=1 x<3 x=x+1 { y=x*2 } }"
+        > The syntax is "{ for assignment condition statement block }"
+        > It appears all the compiler is doing is parsing out the elements of the statements
+        > While the if then statement had multiple blocks the For loop does not so 
+          labeling the blocks was not necesary.
 
 
 
