@@ -1,6 +1,19 @@
+// file: calc.y
+// date: Sat 2/15/15
+//
+
 %{
 #define YYDEBUG 1
 #include "symtab.h"
+
+/**////////////////////////////////////////////////////////////////////////
+// @file calc.y
+// @author RIT CS dept with modifications by all3187 : Arthur Lunn
+// @date 2.15.16
+// @ Basic compiler for processing arithmatic.
+/////////////////////////////////////////////////////////////////////////*/    
+
+
 
 int lineNumber = 1;
 

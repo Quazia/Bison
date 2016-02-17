@@ -1,4 +1,8 @@
-/* $Id: scanner.lex,v 1.2 2013/08/02 20:53:06 bks Exp $ */
+// file: sacnner.y
+// date: Sat 2/15/15
+//
+
+/* >>OLD VERSION CONTROL<< $Id: scanner.lex,v 1.2 2013/08/02 20:53:06 bks Exp $ */
 
 %{
 
@@ -19,6 +23,13 @@ struct tokenInfo2 {
 struct tokenInfo2 yylval;
 
 %}
+
+/**////////////////////////////////////////////////////////////////////////
+// @file prefix.y
+// @author RIT CS dept(BKS) with modifications by all3187 : Arthur Lunn
+// @date 2.15.16
+// @ Basic lexical analyzer for processing arithmatic.
+/////////////////////////////////////////////////////////////////////////*/    
 
 %%
 

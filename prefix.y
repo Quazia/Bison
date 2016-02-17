@@ -1,8 +1,21 @@
+// file: prefix.y
+// date: Sat 2/15/15
+//
+
 %{
 #define YYDEBUG 1
 #include "symtab.h"
 int lineNumber = 1;
 %}
+
+
+/**////////////////////////////////////////////////////////////////////////
+// @file prefix.y
+// @author RIT CS dept with modifications by all3187 : Arthur Lunn
+// @date 2.15.16
+// @ Basic compiler for processing lisp-like prefix arithmatic.
+/////////////////////////////////////////////////////////////////////////*/    
+
 
 /* tokenInfo structs represent variables, integers and expressions. */
 %union {

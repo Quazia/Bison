@@ -1,9 +1,22 @@
+// file: compiler.y
+// date: Sat 2/15/15
+//
+
 %{
 #define YYDEBUG 1
 /* added YYERROR_VERBOSE for ubuntu porting. 2013 */
 #define YYERROR_VERBOSE
 
 #include "compiler.h"
+
+/**////////////////////////////////////////////////////////////////////////
+// @file compiler.y
+// @author RIT CS dept with modifications by all3187 : Arthur Lunn
+// @date 2.15.16
+// @ Basic compiler for processing arithmatic with basic program flow control.
+/////////////////////////////////////////////////////////////////////////*/    
+
+
 
 int lineNumber = 1;
 
@@ -52,7 +65,9 @@ asgnstmt : VARIABLE ASGN sum { $$.code = cat4( $3.code,
                                                "\n"); }
            ;
 
-forstmt: FOR asgnstmt condition statement block {
+
+// Right now it's just storing the raw information
+forstmt: FOR asgnstmt condition asgnstmt block {
     $$.code = cat4($2.code,
                    $3.code,
                    $4.code,
